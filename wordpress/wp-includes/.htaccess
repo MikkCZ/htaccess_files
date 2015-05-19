@@ -1,0 +1,20 @@
+<Files *.php>
+	deny from all
+</Files>
+<Files wp-tinymce.php>
+	allow from all
+</Files>
+<Files ms-files.php>
+	allow from all
+</Files>
+
+# Block wp-includes folder and files
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+	RewriteRule ^wp-admin/includes/ - [F,L]
+	RewriteRule !^wp-includes/ - [S=3]
+	RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+	RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+	RewriteRule ^wp-includes/theme-compat/ - [F,L]
+</IfModule>

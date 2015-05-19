@@ -1,0 +1,76 @@
+###
+# security and other
+###
+<Files readme.html>
+	order allow,deny
+	deny from all
+</Files>
+<Files readme.txt>
+	order allow,deny
+	deny from all
+</Files>
+<Files swfupload.swf>
+	order allow,deny
+	deny from all
+</Files>
+<Files timthumb.php>
+	order allow,deny
+	deny from all
+</Files>
+<Files wp-config.php>
+	order allow,deny
+	deny from all
+</Files>
+<Files wp-config-sample.php>
+	order allow,deny
+	deny from all
+</Files>
+<Files wp-links-opml.php>
+	order allow,deny
+	deny from all
+</Files>
+<Files wp-signup.php>
+	order allow,deny
+	deny from all
+</Files>
+<Files wp-trackback.php>
+	order allow,deny
+	deny from all
+</Files>
+<Files xmlrpc.php>
+	order allow,deny
+	deny from all
+</Files>
+<IfModule mod_headers.c>
+	# Remove PingBack Header
+	Header unset X-Pingback
+</IfModule>
+<IfModule mod_rewrite.c>
+	RewriteCond %{REQUEST_URI} wp-config\.php [NC,OR]
+	RewriteCond %{QUERY_STRING} wp-config\.php [NC,OR]
+	RewriteCond %{THE_REQUEST} wp-config\.php [NC,OR]
+	RewriteCond %{REQUEST_URI} wp-register\.php [NC,OR]
+	RewriteCond %{QUERY_STRING} wp-register\.php [NC,OR]
+	RewriteCond %{THE_REQUEST} wp-register\.php [NC,OR]
+	RewriteCond %{REQUEST_URI} wp-signup\.php [NC,OR]
+	RewriteCond %{QUERY_STRING} wp-signup\.php [NC,OR]
+	RewriteCond %{THE_REQUEST} wp-signup\.php [NC]
+	RewriteRule .* - [F,NS,L]
+
+	# username/attchment enumeration protection
+	RewriteCond %{QUERY_STRING} author=([0-9]*) [OR]
+	RewriteCond %{QUERY_STRING} attachment_id=([0-9]*)
+	RewriteRule ^(.*)$ /index.php [F,L]
+</IfModule>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
