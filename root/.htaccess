@@ -1311,6 +1311,7 @@ Options -Indexes
 		ExpiresByType image/gif A604800
 		ExpiresByType image/ico A604800
 		ExpiresByType image/x-icon A604800
+		ExpiresByType image/vnd.microsoft.icon A604800
 		ExpiresByType image/jpg A604800
 		ExpiresByType image/jpeg A604800
 		ExpiresByType image/png A604800
