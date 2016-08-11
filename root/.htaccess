@@ -1291,17 +1291,17 @@ Options -Indexes
 ###
 <IfModule mod_expires.c>
 	ExpiresActive On
-	# default 10 minutes
-		ExpiresDefault A600
-	# HTML/PHP/plain/XHTML/XML 10 minutes
-		ExpiresByType text/html A600
-		ExpiresByType text/php A600
-		ExpiresByType application/php A600
-		ExpiresByType text/plain A600
-		ExpiresByType application/xhtml+xml A600
-		ExpiresByType text/xml A600
-		ExpiresByType application/xml A600
-		ExpiresByType application/x-xml A600
+	# default 1 hour
+		ExpiresDefault A3600
+	# HTML/PHP/plain/XHTML/XML 1 hour
+		ExpiresByType text/html A3600
+		ExpiresByType text/php A3600
+		ExpiresByType application/php A3600
+		ExpiresByType text/plain A3600
+		ExpiresByType application/xhtml+xml A3600
+		ExpiresByType text/xml A3600
+		ExpiresByType application/xml A3600
+		ExpiresByType application/x-xml A3600
 	# CSS 1 week
 		ExpiresByType text/css A604800
 	# JavaScript 1 week
@@ -1318,21 +1318,21 @@ Options -Indexes
 		ExpiresByType image/jpg A604800
 		ExpiresByType image/jpeg A604800
 		ExpiresByType image/png A604800
-	# fonts 1 week
-		ExpiresByType application/font-otf A604800
-		ExpiresByType application/x-font-otf A604800
-		ExpiresByType application/font-ttf A604800
-		ExpiresByType application/x-font-ttf A604800
-		ExpiresByType application/font-woff A604800
-		ExpiresByType application/x-font-woff A604800
-		ExpiresByType application/vnd.ms-fontobject A604800
-		ExpiresByType image/svg+xml A604800
-	# other 1 week
-		ExpiresByType application/x-shockwave-flash A604800
+	# fonts 1 year
+		ExpiresByType application/font-otf A31536000
+		ExpiresByType application/x-font-otf A31536000
+		ExpiresByType application/font-ttf A31536000
+		ExpiresByType application/x-font-ttf A31536000
+		ExpiresByType application/font-woff A31536000
+		ExpiresByType application/x-font-woff A31536000
+		ExpiresByType application/vnd.ms-fontobject A31536000
+		ExpiresByType image/svg+xml A31536000
+	# other 1 year
+		ExpiresByType application/x-shockwave-flash A31536000
 </IfModule>
 <IfModule mod_headers.c>
 	<FilesMatch "\\.(x?html?|php)$">
-		Header set Cache-Control "private, max-age=600, must-revalidate"
+		Header set Cache-Control "private, max-age=3600, must-revalidate"
 	</FilesMatch>
 	<FilesMatch "\\.(css)$">
 		Header set Cache-Control "public, max-age=604800"
