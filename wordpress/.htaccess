@@ -1,4 +1,29 @@
 ###
+# force HTTPS
+###
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{HTTPS} off
+	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+###
+# HSTS
+###
+<IfModule mod_headers.c>
+	Header set Strict-Transport-Security "max-age=15552000"
+</IfModule>
+
+###
+# content headers
+###
+<IfModule mod_headers.c>
+	Header set X-Frame-Options "DENY"
+	Header set X-Content-Type-Options "nosniff"
+	Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+###
 # security and other
 ###
 <Files readme.html>
