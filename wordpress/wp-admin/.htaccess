@@ -1,0 +1,7 @@
+###
+# CSP
+###
+<IfModule mod_headers.c>
+    Header unset Content-Security-Policy
+    Header unset X-Frame-Options
+</IfModule>
