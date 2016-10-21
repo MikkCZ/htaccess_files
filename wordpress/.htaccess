@@ -5,15 +5,13 @@
 	RewriteEngine On
 	RewriteCond %{HTTPS} off
 	RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-	RewriteCond %{HTTP_HOST} !^www\.
-	RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
 ###
 # HSTS
 ###
 <IfModule mod_headers.c>
-	Header set Strict-Transport-Security "max-age=15552000"
+	Header always set Strict-Transport-Security "max-age=15552000" "expr=%{HTTPS} == 'on'"
 </IfModule>
 
 ###
@@ -23,6 +21,16 @@
 	Header set X-Frame-Options "DENY"
 	Header set X-Content-Type-Options "nosniff"
 	Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+###
+# redirect to www
+###
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteCond %{HTTPS} on
+	RewriteCond %{HTTP_HOST} !^www\.
+	RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
 ###
