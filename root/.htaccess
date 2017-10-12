@@ -1289,6 +1289,10 @@ Options -Indexes
 ###
 # browser cache
 ###
+<IfModule mod_mime.c>
+    AddType application/font-woff woff
+    AddType application/font-woff2 woff2
+</IfModule>
 <IfModule mod_expires.c>
 	ExpiresActive On
 	# default 1 hour
@@ -1318,15 +1322,21 @@ Options -Indexes
 		ExpiresByType image/jpg A604800
 		ExpiresByType image/jpeg A604800
 		ExpiresByType image/png A604800
+		ExpiresByType image/svg A604800
+		ExpiresByType image/svg+xml A604800
 	# fonts 1 year
+		ExpiresByType font/opentype A31536000
 		ExpiresByType application/font-otf A31536000
 		ExpiresByType application/x-font-otf A31536000
 		ExpiresByType application/font-ttf A31536000
 		ExpiresByType application/x-font-ttf A31536000
+		ExpiresByType font/woff A31536000
 		ExpiresByType application/font-woff A31536000
 		ExpiresByType application/x-font-woff A31536000
+		ExpiresByType application/font-woff2 A31536000
+		ExpiresByType application/x-font-woff2 A31536000
+		ExpiresByType font/eot A31536000
 		ExpiresByType application/vnd.ms-fontobject A31536000
-		ExpiresByType image/svg+xml A31536000
 	# other 1 year
 		ExpiresByType application/x-shockwave-flash A31536000
 </IfModule>
@@ -1334,21 +1344,6 @@ Options -Indexes
 	<FilesMatch "\\.(x?html?|php)$">
 		Header set Cache-Control "private, max-age=3600, must-revalidate"
 	</FilesMatch>
-	<FilesMatch "\\.(css)$">
-		Header set Cache-Control "public, max-age=604800"
-	</FilesMatch>
-	<FilesMatch "\\.(js)$">
-		Header set Cache-Control "private, max-age=604800"
-	</FilesMatch>
-	<FilesMatch "\\.(bmp|gif|ico|jpe?g|png)$">
-		Header set Cache-Control "public, max-age=604800"
-	</FilesMatch>
-	# BEGIN Turn ETags Off
-		Header unset Pragma
-		FileETag None
-		Header unset ETag
-		Header unset Last-Modified
-	# END Turn ETags Off
 </IfModule>
 
 # BEGIN Compress text files
@@ -1358,6 +1353,7 @@ AddOutputFilterByType DEFLATE \
 	text/xml \
 	text/css \
 	text/plain \
+	image/svg \
 	image/svg+xml \
 	application/xhtml+xml \
 	application/xml \
